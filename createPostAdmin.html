@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>createPost: Admin</title>
+<style>
+:root{--bg:#f5f7f4;--ink:#17262b;--muted:#5d6e72;--line:#cfd9d6;--teal:#1f6f6b;--gold:#e8a317;--red:#b5483a;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#10191c;--ink:#e8efed;--muted:#93a6a9;--line:#2c3d41;--teal:#4fb3ad;--card:#172327;--red:#e07a6b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
+header{padding:28px 20px 0;max-width:960px;margin:auto}
+h1{font:700 2rem Georgia,serif;margin:0 0 4px}
+header p{margin:0;color:var(--muted)}
+main{max-width:960px;margin:auto;padding:20px}
+.col{display:flex;flex-direction:column;gap:20px;min-width:0}
+.grid{display:grid;gap:20px;grid-template-columns:1fr 1fr}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+h2{font:700 1.2rem Georgia,serif;margin:0 0 14px}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.btn{margin-top:16px;background:var(--teal);color:#fff;border:0;padding:10px 18px;border-radius:6px;font:600 1rem inherit;cursor:pointer}
+.btn.sm{margin:0;padding:5px 12px;font-size:.85rem}
+.btn.no{background:var(--red)}
+.item{border-top:1px solid var(--line);padding:12px 0}
+.item:first-of-type{border-top:0}
+.item h3{margin:0 0 2px;font-size:1rem}
+.meta{color:var(--muted);font-size:.85rem}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:1px 10px;font-size:.8rem;margin:4px 4px 0 0}
+.st{font-weight:600}.st.pending{color:var(--gold)}.st.approved{color:var(--teal)}.st.rejected{color:var(--red)}
+.row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.empty{color:var(--muted);font-style:italic}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:6px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.show{opacity:1}
+a{color:var(--teal)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.nav{display:inline-block;margin-top:10px;color:var(--teal);font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <h1>createPost: Admin</h1>
+  <p>Publish posts for users and moderate their submissions.</p>
+  <a class="nav" href="createPostUser.html">Go to User page</a>
+  <label for="adminKey" style="max-width:260px">Admin key</label>
+  <input id="adminKey" type="password" style="max-width:260px" autocomplete="off">
+</header>
+<main>
+<div class="grid">
+  <div class="col">
+    <div class="card">
+      <h2>Create post: Admin</h2>
+      <form id="postForm">
+        <label for="pTitle">Title</label>
+        <input id="pTitle" required>
+        <label for="pBody">Description</label>
+        <textarea id="pBody" rows="4" required></textarea>
+        <label for="pBranch">Open to branch</label>
+        <select id="pBranch">
+          <option>All</option><option>CSE</option><option>ECE</option><option>EEE</option>
+          <option>IT</option><option>AI &amp; DS</option><option>Mechanical</option><option>Civil</option><option>Design</option><option>Other</option>
+        </select>
+        <label for="pYear">Open to year</label>
+        <select id="pYear"><option>All</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        <label for="pSkill">Skills wanted <span class="meta">(comma separated, optional)</span></label>
+        <input id="pSkill">
+        <label for="pDeadline">Deadline</label>
+        <input id="pDeadline" type="date" required>
+        <label for="pFile">Attachment <span class="meta">(optional, up to 5 MB)</span></label>
+        <input id="pFile" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+        <button class="btn" type="submit">Publish post</button>
+      </form>
+      <div id="posts" style="margin-top:20px"></div>
+    </div>
+    <div class="card">
+      <h2>Add hackathon</h2>
+      <form id="hackForm">
+        <label for="hTitle">Title</label><input id="hTitle" required>
+        <label for="hOrg">Organizer</label><input id="hOrg">
+        <div class="two">
+          <div><label for="hDeadline">Register by</label><input id="hDeadline" type="date" required></div>
+          <div><label for="hDates">Event dates</label><input id="hDates" placeholder="2026-11-01 to 2026-11-02"></div>
+          <div><label for="hLoc">Location</label><input id="hLoc"></div>
+          <div><label for="hPrize">Prize</label><input id="hPrize"></div>
+        </div>
+        <label for="hLink">Registration link</label><input id="hLink" type="url" placeholder="https://">
+        <label for="hBranch">Branches <span class="meta">(comma separated, or Any)</span></label><input id="hBranch" placeholder="CSE, IT, ECE">
+        <label for="hYear">Years <span class="meta">(comma separated)</span></label><input id="hYear" placeholder="2nd Year, 3rd Year">
+        <label for="hSkills">Skills</label><input id="hSkills" placeholder="Python, Web">
+        <label for="hInterests">Interests</label><input id="hInterests" placeholder="Hackathons, AI/ML">
+        <label for="hElig">Eligibility</label><textarea id="hElig" rows="3"></textarea>
+        <button class="btn" type="submit">Add hackathon</button>
+      </form>
+      <div id="hacks" style="margin-top:20px"></div>
+    </div>
+    
+  </div>
+  <div class="col">
+    <div class="card">
+      <h2>Moderator</h2>
+      <label for="modName">Assigned moderator</label>
+      <input id="modName" placeholder="Moderator name">
+      <p class="meta">Review user posts below. Approved posts stay listed; rejected ones are marked.</p>
+      <div id="queue"></div>
+    </div>
+    <div class="card">
+      <h2>Submitted files</h2>
+      <div id="apps"></div>
+    </div>
+
+  </div>
+</div>
+</main>
+<div id="toast" role="status"></div>
+<script>
+const $ = id => document.getElementById(id);
+let db = { subs: [], posts: [], mod: "" };
+const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const tags = a => a.map(x => `<span class="tag">${esc(x)}</span>`).join("");
+const fmt = d => new Date(d + "T00:00").toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+const closed = p => p.deadline && new Date(p.deadline + "T23:59:59") < new Date();
+const dlTag = p => p.deadline ? [(closed(p) ? "Closed " : "Apply by ") + fmt(p.deadline)] : [];
+const fileLink = f => f ? `<div class="meta"><a href="${esc(f.path)}" target="_blank" rel="noopener">${esc(f.name)}</a></div>` : "";
+const toast = m => { const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2400); };
+const BIG = 5 * 1024 * 1024;
+
+// Sends one request to api.php (as form data so files can go along)
+async function api(action, data = {}, file) {
+  const fd = new FormData();
+  fd.append("action", action);
+  for (const k in data) fd.append(k, data[k]);
+  if (file) fd.append("file", file);
+  let r, j;
+  try { r = await fetch("api.php", { method: "POST", body: fd }); j = await r.json(); }
+  catch (e) { throw new Error("Cannot reach api.php. Open this page through a PHP server."); }
+  if (!r.ok) throw new Error(j.error || "Request failed");
+  return j;
+}
+
+async function refresh() {
+  try {
+    const r = await fetch("api.php?action=list"); db = await r.json();
+    db.applications = [];
+    if ($("adminKey").value) { try { db.applications = (await api("admin_list", { key: $("adminKey").value })).applications; } catch (e) {} }
+    render();
+  } catch (e) { toast("Cannot reach api.php. Open this page through a PHP server."); }
+}
+
+const keyEl = $("adminKey");
+try { keyEl.value = sessionStorage.getItem("createPostKey") || ""; } catch (e) {}
+keyEl.oninput = () => { try { sessionStorage.setItem("createPostKey", keyEl.value); } catch (e) {} };
+keyEl.onchange = () => refresh();
+const withKey = d => Object.assign({ key: keyEl.value }, d);
+const run = async (fn, msg) => { try { await fn(); await refresh(); toast(msg); } catch (err) { toast(err.message); } };
+
+$("pDeadline").min = new Date().toISOString().slice(0, 10);
+
+$("postForm").onsubmit = e => {
+  e.preventDefault();
+  const f = $("pFile").files[0];
+  if (f && f.size > BIG) return toast("The file is larger than 5 MB.");
+  run(async () => {
+    await api("add_post", withKey({ title: $("pTitle").value, body: $("pBody").value, branch: $("pBranch").value,
+      year: $("pYear").value, skills: $("pSkill").value, deadline: $("pDeadline").value }), f);
+    e.target.reset();
+  }, "Published");
+};
+
+$("hDeadline").min = new Date().toISOString().slice(0, 10);
+$("hackForm").onsubmit = e => {
+  e.preventDefault();
+  run(async () => {
+    await api("add_hackathon", withKey({ title: $("hTitle").value, organizer: $("hOrg").value, deadlineToRegister: $("hDeadline").value,
+      eventDates: $("hDates").value, location: $("hLoc").value, prize: $("hPrize").value, registrationLink: $("hLink").value,
+      branch: $("hBranch").value, year: $("hYear").value, skills: $("hSkills").value, interests: $("hInterests").value,
+      eligibility: $("hElig").value }));
+    e.target.reset();
+  }, "Hackathon added");
+};
+const delHack = id => run(() => api("delete_hackathon", withKey({ id })), "Hackathon deleted");
+
+$("modName").onchange = e => run(() => api("set_mod", withKey({ name: e.target.value })), "Moderator saved");
+const setStatus = (id, st) => run(() => api("set_status", withKey({ id, status: st })), st === "approved" ? "Approved" : "Rejected");
+const delPost = id => run(() => api("delete_post", withKey({ id })), "Post deleted");
+
+function render() {
+  if (document.activeElement !== $("modName")) $("modName").value = db.mod || "";
+
+  $("posts").innerHTML = db.posts.length ? "<h2>Published posts</h2>" + db.posts.map(p => `
+    <div class="item"><h3>${esc(p.title)}</h3><div class="meta">${esc(p.body)}</div>${tags([p.branch, "Year " + p.year, ...p.skills, ...dlTag(p)])}${fileLink(p.file)}
+    <div class="row"><button class="btn sm no" onclick="delPost(${p.id})">Delete</button></div></div>`).join("") : "";
+
+  $("hacks").innerHTML = db.opportunities.length ? "<h2>Hackathons</h2>" + db.opportunities.map(o => `
+    <div class="item"><h3>${esc(o.title)}</h3><div class="meta">${esc(o.organizer)} · Register by ${esc(fmt(o.deadlineToRegister))}</div>
+    <div class="row"><button class="btn sm no" onclick="delHack('${esc(o.id)}')">Delete</button></div></div>`).join("") : "";
+
+  const title = id => (db.opportunities.find(o => o.id === id) || {}).title || id;
+  $("apps").innerHTML = !$("adminKey").value ? '<p class="empty">Enter the admin key to see submitted files.</p>'
+    : db.applications.length ? db.applications.map(x => `
+    <div class="item"><h3>${esc(title(x.opportunityId))}</h3>
+    <div class="meta">${esc(x.name)} · ${esc(new Date(x.submittedAt).toLocaleString())}</div>
+    ${x.note ? `<div class="meta">${esc(x.note)}</div>` : ""}${fileLink(x.file)}</div>`).join("")
+    : '<p class="empty">No files submitted yet.</p>';
+
+  const pend = db.subs.filter(s => s.status === "pending");
+  $("queue").innerHTML = pend.length ? pend.map(s => `
+    <div class="item">
+      <h3>${esc(s.branch)} · Year ${esc(s.year)}</h3>
+      <div class="meta">Interest: ${esc(s.interest)} · ${esc(s.elig)}</div>
+      ${tags(s.skills)}${fileLink(s.file)}
+      <div class="row">
+        <button class="btn sm" onclick="setStatus(${s.id},'approved')">Approve</button>
+        <button class="btn sm no" onclick="setStatus(${s.id},'rejected')">Reject</button>
+      </div>
+    </div>`).join("") : '<p class="empty">The queue is clear.</p>';
+}
+refresh();
+setInterval(refresh, 10000);
+</script>
+</body>
+</html>

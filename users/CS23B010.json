@@ -1,0 +1,53 @@
+{
+    "user": {
+        "rollNo": "CS23B010",
+        "password": "opportune123",
+        "id": "user-001",
+        "name": "Own",
+        "email": "cs23b010@campus.edu",
+        "college": "Campus Institute of Technology",
+        "branch": "CSE",
+        "year": "3rd Year",
+        "cgpa": 8.6,
+        "profileComplete": 94,
+        "skills": [
+            "Python",
+            "Machine Learning",
+            "SQL",
+            "Web",
+            "Git",
+            "Figma"
+        ],
+        "interests": [
+            "AI\/ML",
+            "Hackathons",
+            "Social impact",
+            "Open source",
+            "Product building"
+        ],
+        "eligibility": {
+            "enrollment": "Full-time undergraduate",
+            "availableFor": [
+                "On campus",
+                "Remote",
+                "Hybrid"
+            ],
+            "teamPreference": "2-4",
+            "hasPriorProject": true,
+            "facultyEndorsement": false
+        },
+        "saved": [
+            "hack-001",
+            "hack-002"
+        ],
+        "applied": [],
+        "pinned": {
+            "ids": [
+                "work-002",
+                "res-001",
+                "fell-002",
+                "int-001"
+            ]
+        }
+    }
+}

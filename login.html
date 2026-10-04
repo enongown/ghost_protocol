@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OpporTune — Log in</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    background: #f4f1ea; color: #1c1915;
+  }
+  .card {
+    width: min(380px, 92vw); background: #fff; border: 1px solid #e6dfd2;
+    border-radius: 16px; padding: 36px 28px 28px; text-align: center;
+    box-shadow: 0 12px 32px rgba(40, 28, 12, 0.06);
+  }
+  .logo { font-family: Outfit, sans-serif; font-weight: 800; font-size: 28px; margin: 0 0 6px; }
+  .sub { margin: 0 0 22px; color: #6f675c; font-size: 14px; }
+  label { display: block; text-align: left; font-size: 13px; font-weight: 600; margin: 12px 0 6px; }
+  input {
+    width: 100%; border: 1px solid #e6dfd2; background: #faf7f2;
+    border-radius: 10px; padding: 12px; font: inherit; font-size: 14px;
+  }
+  button {
+    width: 100%; border: 0; border-radius: 10px; padding: 12px;
+    font: inherit; font-weight: 600; cursor: pointer; margin-top: 14px;
+  }
+  .login { background: #1d4ed8; color: white; }
+  .signup { background: #fff; color: #1c1915; border: 1px solid #e6dfd2; }
+  .msg { min-height: 18px; margin: 10px 0 0; font-size: 13px; color: #b91c1c; }
+</style>
+</head>
+<body>
+  <form class="card" id="form">
+    <h1 class="logo">🎯 OpporTune</h1>
+    <p class="sub">Log in with your roll number</p>
+    <label for="roll">Roll number</label>
+    <input id="roll" name="roll" placeholder="CS23B010" autocomplete="username" required />
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" placeholder="Password" required />
+    <button class="login" type="submit">Log in</button>
+    <button class="signup" type="button" id="signup">Sign up</button>
+    <p class="msg" id="msg"></p>
+  </form>
+<script>
+  const msg = document.getElementById("msg");
+
+  document.getElementById("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const rollNo = document.getElementById("roll").value.trim();
+    const password = document.getElementById("password").value;
+    msg.textContent = "";
+
+    const body = new URLSearchParams({ rollNo, password });
+    const res = await fetch("auth.php", { method: "POST", body });
+    const data = await res.json();
+
+    if (!data.ok) {
+      msg.textContent = data.error || "Login failed";
+      return;
+    }
+
+    const user = data.user;
+    const q = new URLSearchParams({
+      rollNo: user.rollNo,
+      name: user.name,
+      branch: user.branch,
+      year: user.year,
+      cgpa: String(user.cgpa),
+      skills: (user.skills || []).join(","),
+      interests: (user.interests || []).join(",")
+    });
+    window.location.href = "feed.html?" + q.toString();
+  });
+
+  document.getElementById("signup").addEventListener("click", () => {
+    msg.textContent = "Sign up is not wired yet";
+  });
+</script>
+</body>
+</html>
