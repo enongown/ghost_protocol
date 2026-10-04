@@ -17,4 +17,28 @@ if (!is_array($data)) {
   exit;
 }
 
-echo json_encode(["ok" => true, "opportunities" => $data["opportunities"] ?? []]);
+function image_path($item) {
+  $raw = "";
+  if (isset($item["file"]["path"])) $raw = $item["file"]["path"];
+  elseif (isset($item["imagePath"])) $raw = $item["imagePath"];
+  $raw = str_replace("\\", "/", trim((string)$raw));
+  if ($raw === "") return "";
+  return ltrim($raw, "/");
+}
+
+function with_image($items) {
+  $out = [];
+  foreach ($items as $item) {
+    if (!is_array($item)) continue;
+    $item["imagePath"] = image_path($item);
+    $out[] = $item;
+  }
+  return $out;
+}
+
+echo json_encode([
+  "ok" => true,
+  "opportunities" => with_image($data["opportunities"] ?? []),
+  "posts" => with_image($data["posts"] ?? []),
+  "subs" => with_image($data["subs"] ?? [])
+], JSON_UNESCAPED_SLASHES);
