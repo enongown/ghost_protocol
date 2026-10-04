@@ -1029,7 +1029,38 @@
             "file": null
         }
     ],
-    "posts": [],
-    "mod": "",
+    "posts": [
+        {
+            "id": 1791109034976,
+            "title": "WORKSHOP MIT",
+            "body": "most welding to talk",
+            "branch": "CSE",
+            "year": "2",
+            "skills": [
+                "python"
+            ],
+            "deadline": "2026-10-22",
+            "file": {
+                "name": "IMG_2013.jpeg",
+                "path": "uploads\/b6e4f59020d0ab2e.jpeg"
+            }
+        },
+        {
+            "id": 1791108637240,
+            "title": "summer internship",
+            "body": "1 year",
+            "branch": "All",
+            "year": "All",
+            "skills": [
+                "c"
+            ],
+            "deadline": "2026-10-22",
+            "file": {
+                "name": "IMG_2022.jpeg",
+                "path": "uploads\/4ecc75bea40e3d85.jpeg"
+            }
+        }
+    ],
+    "mod": "nong",
     "applications": []
 }

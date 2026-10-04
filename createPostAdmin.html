@@ -3,130 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>createPost: Admin</title>
+<title>createPost · Admin</title>
 <style>
-:root{--bg:#f5f7f4;--ink:#17262b;--muted:#5d6e72;--line:#cfd9d6;--teal:#1f6f6b;--gold:#e8a317;--red:#b5483a;--card:#fff}
-@media (prefers-color-scheme:dark){:root{--bg:#10191c;--ink:#e8efed;--muted:#93a6a9;--line:#2c3d41;--teal:#4fb3ad;--card:#172327;--red:#e07a6b}}
+:root{
+  --bg:#f7f6f3;--card:#ffffff;--ink:#1a2426;--muted:#6b7879;--line:#e6e4de;
+  --teal:#1f6f6b;--teal-soft:#e6f1f0;--gold:#c98a0b;--gold-soft:#fbf1dc;
+  --red:#b5483a;--red-soft:#fbe8e5;--green:#2f8f6c;--green-soft:#e5f2eb;
+  --shadow:0 1px 2px rgba(20,30,30,.04),0 8px 24px -18px rgba(20,30,30,.35);
+  --radius:14px;--radius-sm:9px;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1416;--card:#182124;--ink:#e9efee;--muted:#94a3a4;--line:#283538;
+  --teal:#4fb3ad;--teal-soft:#12302e;--gold:#e8b74a;--gold-soft:#332708;
+  --red:#e07a6b;--red-soft:#3a1a17;--green:#4fc396;--green-soft:#102b22;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -18px rgba(0,0,0,.7);
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
-header{padding:28px 20px 0;max-width:960px;margin:auto}
-h1{font:700 2rem Georgia,serif;margin:0 0 4px}
-header p{margin:0;color:var(--muted)}
-main{max-width:960px;margin:auto;padding:20px}
-.col{display:flex;flex-direction:column;gap:20px;min-width:0}
-.grid{display:grid;gap:20px;grid-template-columns:1fr 1fr}
-@media(max-width:760px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
-h2{font:700 1.2rem Georgia,serif;margin:0 0 14px}
-label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
-input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
-input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
-.btn{margin-top:16px;background:var(--teal);color:#fff;border:0;padding:10px 18px;border-radius:6px;font:600 1rem inherit;cursor:pointer}
-.btn.sm{margin:0;padding:5px 12px;font-size:.85rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+
+header{background:var(--card);border-bottom:1px solid var(--line);padding:22px 20px}
+.headwrap{max-width:900px;margin:auto;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+h1{font:700 1.6rem Georgia,serif;letter-spacing:-.01em;margin:0 0 2px}
+header p{margin:0;color:var(--muted);font-size:.92rem}
+.keyrow{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:6px 12px}
+.keyrow label{font-size:.8rem;font-weight:600;color:var(--muted);margin:0}
+#adminKey{border:0;background:transparent;color:var(--ink);font:inherit;padding:4px;width:180px}
+#adminKey:focus{outline:0}
+.keyrow:focus-within{outline:2px solid var(--teal);outline-offset:1px}
+
+main{max-width:900px;margin:auto;padding:24px 20px 60px;display:flex;flex-direction:column;gap:22px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.card h2{font:700 1.15rem Georgia,serif;letter-spacing:-.005em;margin:0 0 4px}
+.card .hint{margin:0 0 16px;color:var(--muted);font-size:.88rem}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+
+details.card{padding:0}
+details.card>summary{cursor:pointer;padding:20px 22px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary::after{content:"▾";color:var(--muted);transition:transform .2s}
+details.card[open]>summary::after{transform:rotate(180deg)}
+details.card>summary h2{margin:0}
+details.card>summary .hint{margin:2px 0 0}
+details.card>div{padding:0 22px 22px}
+
+label{display:block;font-weight:600;font-size:.85rem;margin:14px 0 5px;color:var(--ink)}
+label .meta{color:var(--muted);font-weight:400}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--bg);color:var(--ink);font:inherit;font-family:inherit}
+textarea{resize:vertical;min-height:80px}
+input:focus,select:focus,textarea:focus,button:focus-visible,summary:focus-visible{outline:2.5px solid var(--teal);outline-offset:1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+
+.btn{background:var(--teal);color:#fff;border:0;padding:11px 22px;border-radius:var(--radius-sm);font:600 .95rem inherit;cursor:pointer;margin-top:18px}
+.btn:hover{filter:brightness(1.08)}
+.btn.sm{margin:0;padding:6px 14px;font-size:.83rem}
+.btn.ghost{background:transparent;color:var(--teal);border:1px solid var(--line)}
 .btn.no{background:var(--red)}
-.item{border-top:1px solid var(--line);padding:12px 0}
-.item:first-of-type{border-top:0}
-.item h3{margin:0 0 2px;font-size:1rem}
-.meta{color:var(--muted);font-size:.85rem}
-.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:1px 10px;font-size:.8rem;margin:4px 4px 0 0}
-.st{font-weight:600}.st.pending{color:var(--gold)}.st.approved{color:var(--teal)}.st.rejected{color:var(--red)}
-.row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.empty{color:var(--muted);font-style:italic}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:6px;opacity:0;transition:opacity .2s;pointer-events:none}
+
+.preview{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:16px;margin:12px 0}
+.preview h3{margin:0 0 6px;font-size:1.02rem;font-weight:700}
+.preview .body{font-size:.92rem;line-height:1.55;white-space:pre-wrap;margin:6px 0 10px;color:var(--ink);opacity:.92}
+.preview .meta{color:var(--muted);font-size:.85rem;line-height:1.5}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:.78rem;margin:6px 4px 0 0;font-weight:500}
+.tag.type{background:var(--ink);color:var(--bg);border-color:transparent;font-weight:600}
+.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.empty{color:var(--muted);font-style:italic;font-size:.9rem;margin:4px 0}
+
+.attach{margin-top:12px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.attach img{display:block;width:100%;height:auto;max-height:420px;object-fit:contain;background:#000}
+.attach iframe{display:block;width:100%;height:420px;border:0}
+.attach .fallback{display:flex;align-items:center;gap:10px;padding:12px 14px;font-size:.88rem}
+.attach .cap{padding:8px 12px;font-size:.78rem;color:var(--muted);background:var(--bg);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+
+.sub{border-left:3px solid var(--gold);background:var(--bg);border-radius:var(--radius-sm);padding:14px 16px;margin:12px 0}
+.sub h3{margin:0 0 6px;font-size:.98rem}
+.sub .desc{font-size:.9rem;margin:8px 0 0;color:var(--ink);opacity:.92;white-space:pre-wrap}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:10px;font-weight:600;font-size:.92rem;opacity:0;transition:opacity .2s;pointer-events:none;box-shadow:0 8px 24px -8px rgba(0,0,0,.4);z-index:9}
 #toast.show{opacity:1}
-a{color:var(--teal)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
-.nav{display:inline-block;margin-top:10px;color:var(--teal);font-weight:600}
 </style>
 </head>
 <body>
 <header>
-  <h1>createPost: Admin</h1>
-  <p>Publish posts for users and moderate their submissions.</p>
-  <a class="nav" href="createPostUser.html">Go to User page</a>
-  <label for="adminKey" style="max-width:260px">Admin key</label>
-  <input id="adminKey" type="password" style="max-width:260px" autocomplete="off">
-</header>
-<main>
-<div class="grid">
-  <div class="col">
-    <div class="card">
-      <h2>Create post: Admin</h2>
-      <form id="postForm">
-        <label for="pTitle">Title</label>
-        <input id="pTitle" required>
-        <label for="pBody">Description</label>
-        <textarea id="pBody" rows="4" required></textarea>
-        <label for="pBranch">Open to branch</label>
-        <select id="pBranch">
-          <option>All</option><option>CSE</option><option>ECE</option><option>EEE</option>
-          <option>IT</option><option>AI &amp; DS</option><option>Mechanical</option><option>Civil</option><option>Design</option><option>Other</option>
-        </select>
-        <label for="pYear">Open to year</label>
-        <select id="pYear"><option>All</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
-        <label for="pSkill">Skills wanted <span class="meta">(comma separated, optional)</span></label>
-        <input id="pSkill">
-        <label for="pDeadline">Deadline</label>
-        <input id="pDeadline" type="date" required>
-        <label for="pFile">Attachment <span class="meta">(optional, up to 5 MB)</span></label>
-        <input id="pFile" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
-        <button class="btn" type="submit">Publish post</button>
-      </form>
-      <div id="posts" style="margin-top:20px"></div>
+  <div class="headwrap">
+    <div>
+      <h1>createPost · Admin</h1>
+      <p>Publish posts, add opportunities, moderate user submissions.</p>
     </div>
-    <div class="card">
-      <h2>Add hackathon</h2>
+    <div class="keyrow">
+      <label for="adminKey">Key</label>
+      <input id="adminKey" type="password" autocomplete="off" placeholder="admin key">
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Create a post</h2>
+    <p class="hint">Visible to matching users once published. Attach an image or PDF to preview it below.</p>
+    <form id="postForm">
+      <label for="pTitle">Title</label>
+      <input id="pTitle" required maxlength="120" placeholder="e.g. Summer ML internship — 3 slots">
+
+      <label for="pBody">Description</label>
+      <textarea id="pBody" rows="4" required maxlength="2000" placeholder="What is this about? Who should apply?"></textarea>
+
+      <div class="two">
+        <div>
+          <label for="pBranch">Open to branch</label>
+          <select id="pBranch">
+            <option>All</option><option>CSE</option><option>ECE</option><option>EEE</option>
+            <option>IT</option><option>AI &amp; DS</option><option>Mechanical</option><option>Civil</option><option>Design</option><option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="pYear">Open to year</label>
+          <select id="pYear"><option>All</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        </div>
+      </div>
+
+      <label for="pSkill">Skills wanted <span class="meta">(comma separated, optional)</span></label>
+      <input id="pSkill" placeholder="Python, React, Figma">
+
+      <label for="pDeadline">Deadline</label>
+      <input id="pDeadline" type="date" required>
+
+      <label for="pFile">Attachment <span class="meta">(optional, up to 5 MB — image, PDF, or doc)</span></label>
+      <input id="pFile" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+
+      <button class="btn" type="submit">Publish post</button>
+    </form>
+    <div id="posts"></div>
+  </section>
+
+  <details class="card">
+    <summary>
+      <div>
+        <h2>Add an opportunity</h2>
+        <p class="hint">Hackathons, internships, scholarships, and more.</p>
+      </div>
+    </summary>
+    <div>
       <form id="hackForm">
-        <label for="hTitle">Title</label><input id="hTitle" required>
-        <label for="hOrg">Organizer</label><input id="hOrg">
+        <div class="two">
+          <div>
+            <label for="hType">Type</label>
+            <select id="hType" required>
+              <option>Hackathon</option><option>Internship</option><option>Scholarship</option>
+              <option>Research</option><option>Coding Contest</option><option>Workshop</option>
+              <option>Fellowship</option><option>Competition</option>
+            </select>
+          </div>
+          <div>
+            <label for="hOrg">Organizer</label>
+            <input id="hOrg" placeholder="Microsoft, IIT, …">
+          </div>
+        </div>
+
+        <label for="hTitle">Title</label>
+        <input id="hTitle" required placeholder="Microsoft AI Hackathon">
+
         <div class="two">
           <div><label for="hDeadline">Register by</label><input id="hDeadline" type="date" required></div>
           <div><label for="hDates">Event dates</label><input id="hDates" placeholder="2026-11-01 to 2026-11-02"></div>
-          <div><label for="hLoc">Location</label><input id="hLoc"></div>
-          <div><label for="hPrize">Prize</label><input id="hPrize"></div>
         </div>
-        <label for="hLink">Registration link</label><input id="hLink" type="url" placeholder="https://">
-        <label for="hBranch">Branches <span class="meta">(comma separated, or Any)</span></label><input id="hBranch" placeholder="CSE, IT, ECE">
-        <label for="hYear">Years <span class="meta">(comma separated)</span></label><input id="hYear" placeholder="2nd Year, 3rd Year">
-        <label for="hSkills">Skills</label><input id="hSkills" placeholder="Python, Web">
-        <label for="hInterests">Interests</label><input id="hInterests" placeholder="Hackathons, AI/ML">
-        <label for="hElig">Eligibility</label><textarea id="hElig" rows="3"></textarea>
-        <button class="btn" type="submit">Add hackathon</button>
-      </form>
-      <div id="hacks" style="margin-top:20px"></div>
-    </div>
-    
-  </div>
-  <div class="col">
-    <div class="card">
-      <h2>Moderator</h2>
-      <label for="modName">Assigned moderator</label>
-      <input id="modName" placeholder="Moderator name">
-      <p class="meta">Review user posts below. Approved posts stay listed; rejected ones are marked.</p>
-      <div id="queue"></div>
-    </div>
-    <div class="card">
-      <h2>Submitted files</h2>
-      <div id="apps"></div>
-    </div>
 
-  </div>
-</div>
+        <div class="two">
+          <div><label for="hLoc">Location</label><input id="hLoc" placeholder="Remote / On campus / Hyderabad"></div>
+          <div><label for="hPrize">Prize / Stipend</label><input id="hPrize" placeholder="₹1,50,000 prize pool"></div>
+        </div>
+
+        <label for="hLink">Registration link</label>
+        <input id="hLink" type="url" placeholder="https://">
+
+        <div class="two">
+          <div><label for="hBranch">Branches <span class="meta">(or Any)</span></label><input id="hBranch" placeholder="CSE, IT, ECE"></div>
+          <div><label for="hYear">Years</label><input id="hYear" placeholder="2nd Year, 3rd Year"></div>
+        </div>
+
+        <div class="two">
+          <div><label for="hSkills">Skills</label><input id="hSkills" placeholder="Python, Web"></div>
+          <div><label for="hInterests">Interests</label><input id="hInterests" placeholder="Hackathons, AI/ML"></div>
+        </div>
+
+        <label for="hElig">Eligibility</label>
+        <textarea id="hElig" rows="3" placeholder="Team size, CGPA, who can apply…"></textarea>
+
+        <button class="btn" type="submit">Add opportunity</button>
+      </form>
+      <div id="hacks"></div>
+    </div>
+  </details>
+
+  <section class="card">
+    <h2>Moderator</h2>
+    <p class="hint">Review user posts below. Approved posts are kept; rejected ones are marked.</p>
+
+    <label for="modName">Assigned moderator</label>
+    <input id="modName" placeholder="e.g. Prof. Rao" style="max-width:300px">
+
+    <div id="queue" style="margin-top:18px"></div>
+  </section>
+
 </main>
+
 <div id="toast" role="status"></div>
+
 <script>
 const $ = id => document.getElementById(id);
-let db = { subs: [], posts: [], mod: "" };
+let db = { subs: [], posts: [], mod: "", opportunities: [], applications: [] };
+
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-const tags = a => a.map(x => `<span class="tag">${esc(x)}</span>`).join("");
+const tags = (a, cls = "") => a.filter(Boolean).map(x => `<span class="tag ${cls}">${esc(x)}</span>`).join("");
 const fmt = d => new Date(d + "T00:00").toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
 const closed = p => p.deadline && new Date(p.deadline + "T23:59:59") < new Date();
 const dlTag = p => p.deadline ? [(closed(p) ? "Closed " : "Apply by ") + fmt(p.deadline)] : [];
-const fileLink = f => f ? `<div class="meta"><a href="${esc(f.path)}" target="_blank" rel="noopener">${esc(f.name)}</a></div>` : "";
 const toast = m => { const t = $("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2400); };
 const BIG = 5 * 1024 * 1024;
 
-// Sends one request to api.php (as form data so files can go along)
+function preview(f) {
+  if (!f || !f.path) return "";
+  const url = esc(f.path);
+  const name = esc(f.name || "attachment");
+  const ext = (f.name || "").split(".").pop().toLowerCase();
+
+  let inner = "";
+  if (["png","jpg","jpeg","gif","webp"].includes(ext)) {
+    inner = `<img src="${url}" alt="${name}" loading="lazy">`;
+  } else if (ext === "pdf") {
+    inner = `<iframe src="${url}" title="${name}"></iframe>`;
+  } else {
+    inner = `<div class="fallback">📄 <a href="${url}" target="_blank" rel="noopener">${name}</a>
+             <span class="meta">(browser can't preview this type — click to open)</span></div>`;
+  }
+
+  return `<div class="attach">
+    ${inner}
+    <div class="cap">
+      <span>📎 ${name}</span>
+      <a href="${url}" target="_blank" rel="noopener">Open ↗</a>
+    </div>
+  </div>`;
+}
+
 async function api(action, data = {}, file) {
   const fd = new FormData();
   fd.append("action", action);
@@ -143,7 +266,9 @@ async function refresh() {
   try {
     const r = await fetch("api.php?action=list"); db = await r.json();
     db.applications = [];
-    if ($("adminKey").value) { try { db.applications = (await api("admin_list", { key: $("adminKey").value })).applications; } catch (e) {} }
+    if ($("adminKey").value) {
+      try { db.applications = (await api("admin_list", { key: $("adminKey").value })).applications || []; } catch (e) {}
+    }
     render();
   } catch (e) { toast("Cannot reach api.php. Open this page through a PHP server."); }
 }
@@ -156,66 +281,99 @@ const withKey = d => Object.assign({ key: keyEl.value }, d);
 const run = async (fn, msg) => { try { await fn(); await refresh(); toast(msg); } catch (err) { toast(err.message); } };
 
 $("pDeadline").min = new Date().toISOString().slice(0, 10);
+$("hDeadline").min = new Date().toISOString().slice(0, 10);
 
 $("postForm").onsubmit = e => {
   e.preventDefault();
   const f = $("pFile").files[0];
   if (f && f.size > BIG) return toast("The file is larger than 5 MB.");
   run(async () => {
-    await api("add_post", withKey({ title: $("pTitle").value, body: $("pBody").value, branch: $("pBranch").value,
-      year: $("pYear").value, skills: $("pSkill").value, deadline: $("pDeadline").value }), f);
+    await api("add_post", withKey({
+      title: $("pTitle").value, body: $("pBody").value,
+      branch: $("pBranch").value, year: $("pYear").value,
+      skills: $("pSkill").value, deadline: $("pDeadline").value
+    }), f);
     e.target.reset();
   }, "Published");
 };
 
-$("hDeadline").min = new Date().toISOString().slice(0, 10);
 $("hackForm").onsubmit = e => {
   e.preventDefault();
   run(async () => {
-    await api("add_hackathon", withKey({ title: $("hTitle").value, organizer: $("hOrg").value, deadlineToRegister: $("hDeadline").value,
-      eventDates: $("hDates").value, location: $("hLoc").value, prize: $("hPrize").value, registrationLink: $("hLink").value,
-      branch: $("hBranch").value, year: $("hYear").value, skills: $("hSkills").value, interests: $("hInterests").value,
-      eligibility: $("hElig").value }));
+    await api("add_opportunity", withKey({
+      type: $("hType").value,
+      title: $("hTitle").value, organizer: $("hOrg").value,
+      deadlineToRegister: $("hDeadline").value, eventDates: $("hDates").value,
+      location: $("hLoc").value, prize: $("hPrize").value,
+      registrationLink: $("hLink").value,
+      branch: $("hBranch").value, year: $("hYear").value,
+      skills: $("hSkills").value, interests: $("hInterests").value,
+      eligibility: $("hElig").value
+    }));
     e.target.reset();
-  }, "Hackathon added");
+  }, "Opportunity added");
 };
-const delHack = id => run(() => api("delete_hackathon", withKey({ id })), "Hackathon deleted");
 
-$("modName").onchange = e => run(() => api("set_mod", withKey({ name: e.target.value })), "Moderator saved");
+const delHack = id => run(() => api("delete_hackathon", withKey({ id })), "Opportunity deleted");
 const setStatus = (id, st) => run(() => api("set_status", withKey({ id, status: st })), st === "approved" ? "Approved" : "Rejected");
 const delPost = id => run(() => api("delete_post", withKey({ id })), "Post deleted");
+
+$("modName").onchange = e => run(() => api("set_mod", withKey({ name: e.target.value })), "Moderator saved");
+
+$("hacks").addEventListener("click", e => {
+  const b = e.target.closest("[data-del]"); if (!b) return;
+  delHack(b.dataset.del);
+});
+$("queue").addEventListener("click", e => {
+  const b = e.target.closest("[data-status]"); if (!b) return;
+  setStatus(Number(b.dataset.id), b.dataset.status);
+});
+$("posts").addEventListener("click", e => {
+  const b = e.target.closest("[data-delpost]"); if (!b) return;
+  delPost(Number(b.dataset.delpost));
+});
 
 function render() {
   if (document.activeElement !== $("modName")) $("modName").value = db.mod || "";
 
-  $("posts").innerHTML = db.posts.length ? "<h2>Published posts</h2>" + db.posts.map(p => `
-    <div class="item"><h3>${esc(p.title)}</h3><div class="meta">${esc(p.body)}</div>${tags([p.branch, "Year " + p.year, ...p.skills, ...dlTag(p)])}${fileLink(p.file)}
-    <div class="row"><button class="btn sm no" onclick="delPost(${p.id})">Delete</button></div></div>`).join("") : "";
+  $("posts").innerHTML = db.posts.length
+    ? `<hr><h2 style="margin-bottom:12px">Published posts</h2>` + db.posts.map(p => `
+      <article class="preview">
+        <h3>${esc(p.title)}</h3>
+        <div class="body">${esc(p.body)}</div>
+        <div>${tags([p.branch, "Year " + p.year, ...(p.skills || []), ...dlTag(p)])}</div>
+        ${preview(p.file)}
+        <div class="row"><button class="btn sm no" data-delpost="${p.id}">Delete</button></div>
+      </article>`).join("")
+    : "";
 
-  $("hacks").innerHTML = db.opportunities.length ? "<h2>Hackathons</h2>" + db.opportunities.map(o => `
-    <div class="item"><h3>${esc(o.title)}</h3><div class="meta">${esc(o.organizer)} · Register by ${esc(fmt(o.deadlineToRegister))}</div>
-    <div class="row"><button class="btn sm no" onclick="delHack('${esc(o.id)}')">Delete</button></div></div>`).join("") : "";
-
-  const title = id => (db.opportunities.find(o => o.id === id) || {}).title || id;
-  $("apps").innerHTML = !$("adminKey").value ? '<p class="empty">Enter the admin key to see submitted files.</p>'
-    : db.applications.length ? db.applications.map(x => `
-    <div class="item"><h3>${esc(title(x.opportunityId))}</h3>
-    <div class="meta">${esc(x.name)} · ${esc(new Date(x.submittedAt).toLocaleString())}</div>
-    ${x.note ? `<div class="meta">${esc(x.note)}</div>` : ""}${fileLink(x.file)}</div>`).join("")
-    : '<p class="empty">No files submitted yet.</p>';
+  const hackBox = $("hacks");
+  hackBox.innerHTML = db.opportunities.length
+    ? `<hr><h2 style="margin-bottom:12px">Opportunities</h2>` + db.opportunities.map(o => `
+      <div class="preview">
+        <h3>${esc(o.title)}</h3>
+        <div class="meta">${esc(o.organizer || "—")} · Register by ${esc(fmt(o.deadlineToRegister))}</div>
+        <div>${tags([o.type || "Hackathon"], "type")}${tags([o.location, o.prize])}</div>
+        <div class="row"><button class="btn sm no" data-del="${esc(o.id)}">Delete</button></div>
+      </div>`).join("")
+    : "";
 
   const pend = db.subs.filter(s => s.status === "pending");
   $("queue").innerHTML = pend.length ? pend.map(s => `
-    <div class="item">
-      <h3>${esc(s.branch)} · Year ${esc(s.year)}</h3>
-      <div class="meta">Interest: ${esc(s.interest)} · ${esc(s.elig)}</div>
-      ${tags(s.skills)}${fileLink(s.file)}
+    <div class="sub">
+      <h3>${esc(s.branch)} · Year ${esc(s.year)} · ${esc(s.type || "Hackathon")}</h3>
+      <div class="meta"><b>Interest:</b> ${esc(s.interest)}</div>
+      ${s.description ? `<div class="desc">${esc(s.description)}</div>` : ""}
+      ${s.link ? `<div class="meta">🔗 <a href="${esc(s.link)}" target="_blank" rel="noopener">${esc(s.link)}</a></div>` : ""}
+      <div>${tags(s.skills)}</div>
+      ${preview(s.file)}
       <div class="row">
-        <button class="btn sm" onclick="setStatus(${s.id},'approved')">Approve</button>
-        <button class="btn sm no" onclick="setStatus(${s.id},'rejected')">Reject</button>
+        <button class="btn sm" data-status="approved" data-id="${s.id}">Approve</button>
+        <button class="btn sm no" data-status="rejected" data-id="${s.id}">Reject</button>
       </div>
     </div>`).join("") : '<p class="empty">The queue is clear.</p>';
 }
+
 refresh();
 setInterval(refresh, 10000);
 </script>

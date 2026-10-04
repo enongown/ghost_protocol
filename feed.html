@@ -60,6 +60,7 @@
   .actions button, .pin-btn { border: 0; background: #f6f1e8; cursor: pointer; }
   .why { font-size: 13px; background: #f3faf6; border-radius: 10px; padding: 8px 10px; margin-top: 8px; }
   .desc { font-size: 14px; line-height: 1.45; margin: 8px 0 0; }
+  .shot { width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-top: 10px; display: block; }
   .pin { cursor: pointer; padding: 12px 14px; }
   .pin h2 { font-size: 16px; margin: 0; }
   .pin .full { display: none; margin-top: 8px; }
@@ -171,6 +172,13 @@
     return `<button type="button" class="pin-btn" data-id="${id}">${isPinned(id) ? "Unpin" : "Pin"}</button>`;
   }
 
+  function imageHtml(item) {
+    const path = item && item.file && item.file.path;
+    if (!path) return "";
+    const src = String(path).replace(/\\/g, "/");
+    return `<img class="shot" src="${src}" alt="">`;
+  }
+
   function cardHtml(c) {
     const dueText = c.left < 0 ? "Closed" : (c.left === 0 ? "Closes today" : c.left + " days left");
     return `<article class="card">
@@ -182,6 +190,7 @@
         </div>
         <div class="match">${c.pct}% MATCH</div>
       </div>
+      ${imageHtml(c.opp)}
       <p class="desc">${c.opp.description || ""}</p>
       <div class="why">Why you're seeing this: ${c.why.join(" · ") || "Open to your campus"}</div>
       <div class="actions">
@@ -200,6 +209,7 @@
         <div class="org">${c.opp.type} · ${c.opp.organizer} · ${c.opp.location}</div>
         <div class="match">${c.pct}% MATCH</div>
         <p class="desc">${c.opp.description || ""}</p>
+        ${imageHtml(c.opp)}
         <div class="why">Why you're seeing this: ${c.why.join(" · ") || "Open to your campus"}</div>
         <div class="actions">
           <span class="due">⏰ ${dueText}</span>
@@ -285,6 +295,26 @@
     .then(data => {
       if (!data.ok) throw new Error(data.error || "failed");
       allCards = (data.opportunities || []).map(opp => ({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) }));
+      (data.posts || []).forEach(post => {
+        const opp = {
+          id: String(post.id),
+          title: post.title,
+          organizer: "Campus post",
+          type: "Workshop",
+          deadlineToRegister: post.deadline,
+          eventDates: post.deadline,
+          location: post.branch || "Campus",
+          prize: post.year || "",
+          registrationLink: "#",
+          description: post.body || "",
+          branch: [post.branch || "Any"],
+          year: [post.year || ""],
+          skills: post.skills || [],
+          interests: [],
+          file: post.file || null
+        };
+        allCards.push({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) });
+      });
       allCards.sort((a, b) => b.pct - a.pct || a.left - b.left);
       drawRadar(allCards);
       const hot = allCards.filter(c => c.pct >= 70).length;
