@@ -71,13 +71,14 @@
       year: user.year,
       cgpa: String(user.cgpa),
       skills: (user.skills || []).join(","),
-      interests: (user.interests || []).join(",")
+      interests: (user.interests || []).join(","),
+      password: password
     });
     window.location.href = "feed.html?" + q.toString();
   });
 
   document.getElementById("signup").addEventListener("click", () => {
-    msg.textContent = "Sign up is not wired yet";
+    window.location.href = "signup.html";
   });
 </script>
 </body>

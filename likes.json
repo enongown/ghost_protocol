@@ -1,0 +1,16 @@
+{
+    "posts": {
+        "int-001": {
+            "likes": {
+                "CS23B010": true
+            },
+            "dislikes": []
+        },
+        "fell-002": {
+            "likes": {
+                "CS23B010": true
+            },
+            "dislikes": []
+        }
+    }
+}

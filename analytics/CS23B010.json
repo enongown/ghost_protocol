@@ -1,0 +1,11 @@
+{
+    "rollNo": "CS23B010",
+    "posts": {
+        "int-001": {
+            "viewsOverMinute": 1,
+            "totalSeconds": 84,
+            "lastViewed": "2026-10-04T12:47:17+02:00",
+            "repeatAfter": "2026-10-04T18:47:17+02:00"
+        }
+    }
+}

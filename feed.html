@@ -42,10 +42,7 @@
   .blip.active { border: 2px solid #1c1915; box-shadow: 0 0 0 3px rgba(28,25,21,.12); }
   .filter-bar { display: none; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 14px; }
   .filter-bar.show { display: flex; }
-  .filter-bar button {
-    border: 0; background: #1c1915; color: white; border-radius: 999px;
-    width: 22px; height: 22px; cursor: pointer; font-size: 12px;
-  }
+  .filter-bar button { border: 0; background: #1c1915; color: white; border-radius: 999px; width: 22px; height: 22px; cursor: pointer; font-size: 12px; }
   .blip em { font-style: normal; display: block; color: var(--muted); font-size: 12px; font-weight: 500; }
   .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
   .list { display: grid; gap: 12px; }
@@ -54,10 +51,11 @@
   h2 { font-family: Outfit, sans-serif; font-size: 20px; margin: 4px 0; }
   .match { font-family: Outfit, sans-serif; font-weight: 800; color: #0f766e; font-size: 22px; }
   .due { font-weight: 700; color: #b91c1c; font-size: 13px; }
-  .actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+  .actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
   .actions a, .actions button { border-radius: 10px; padding: 8px 12px; font-weight: 600; font-size: 13px; text-decoration: none; }
   .actions a { background: #1c1915; color: white; }
-  .actions button, .pin-btn { border: 0; background: #f6f1e8; cursor: pointer; }
+  .actions button, .pin-btn, .vote-btn { border: 0; background: #f6f1e8; cursor: pointer; }
+  .vote-btn.on { outline: 2px solid #1c1915; }
   .why { font-size: 13px; background: #f3faf6; border-radius: 10px; padding: 8px 10px; margin-top: 8px; }
   .desc { font-size: 14px; line-height: 1.45; margin: 8px 0 0; }
   .shot { width: 100%; max-height: 220px; object-fit: cover; border-radius: 12px; margin-top: 10px; display: block; }
@@ -85,12 +83,14 @@
       <b id="who">Student</b>
       <div class="tags" id="profile"></div>
     </section>
-
+    <section class="me" id="due-wrap">
+      <b>⏰ Closing within 2 weeks</b>
+      <div class="list" id="due-list" style="margin-top:10px"></div>
+    </section>
     <section class="me" id="pinned-wrap">
       <b>📌 Pinned</b>
       <div class="list" id="pinned" style="margin-top:10px"></div>
     </section>
-
     <section class="radar-wrap">
       <div class="radar-head">
         <b>📡 Your Opportunity Radar</b>
@@ -103,7 +103,6 @@
         <div class="you">🧑‍💻<br>YOU</div>
       </div>
     </section>
-
     <h2 style="font-size:16px">Recommended for you</h2>
     <div class="filter-bar" id="filter-bar">
       <button type="button" id="clear-filter" title="Show all">✕</button>
@@ -122,7 +121,6 @@
     skills: (q.get("skills") || "").split(",").map(s => s.trim()).filter(Boolean),
     interests: (q.get("interests") || "").split(",").map(s => s.trim()).filter(Boolean)
   };
-
   const TYPES = [
     { name: "Internship", color: "#15803d", angle: -90 },
     { name: "Hackathon", color: "#1d4ed8", angle: 18 },
@@ -133,7 +131,6 @@
     { name: "Fellowship", color: "#4338ca", angle: 112 },
     { name: "Competition", color: "#b91c1c", angle: -145 }
   ];
-
   document.getElementById("hello").textContent = "Good morning, " + user.name;
   document.getElementById("create-post").href = "createPostUser.html" + location.search;
   document.getElementById("who").textContent = user.name + " · " + (user.rollNo || "guest");
@@ -146,80 +143,91 @@
     const hits = (need || []).filter(n => set.has(String(n).toLowerCase()) || String(n).toLowerCase() === "any");
     return { hits, score: need && need.length ? hits.length / need.length : 0 };
   }
-
   function score(opp) {
     const branchOk = (opp.branch || []).some(b => b.toLowerCase() === user.branch.toLowerCase() || b.toLowerCase() === "any");
     const yearOk = (opp.year || []).some(y => y.toLowerCase() === user.year.toLowerCase());
     const skills = overlap(user.skills, opp.skills);
     const interests = overlap(user.interests, opp.interests);
     const raw = (branchOk ? 0.35 : 0) + (yearOk ? 0.25 : 0) + skills.score * 0.25 + interests.score * 0.15;
-    return {
-      pct: Math.round(raw * 100),
-      why: [branchOk ? user.branch : null, yearOk ? user.year : null, ...skills.hits, ...interests.hits].filter(Boolean)
-    };
+    return { pct: Math.round(raw * 100), why: [branchOk ? user.branch : null, yearOk ? user.year : null, ...skills.hits, ...interests.hits].filter(Boolean) };
   }
-
   function daysLeft(date) {
+    if (!date) return 99;
     return Math.ceil((new Date(date + "T23:59:59") - new Date()) / 86400000);
   }
 
   let allCards = [];
   let activeType = "";
   let pinnedIds = [];
+  let repeatIds = [];
+  let votes = {};
+  const watch = {};
 
   function isPinned(id) { return pinnedIds.indexOf(id) !== -1; }
   function pinButton(id) {
     return `<button type="button" class="pin-btn" data-id="${id}">${isPinned(id) ? "Unpin" : "Pin"}</button>`;
   }
-
-  function imageHtml(item) {
-    const path = item && item.file && item.file.path;
-    if (!path) return "";
-    const src = String(path).replace(/\\/g, "/");
-    return `<img class="shot" src="${src}" alt="">`;
+  function voteButtons(id) {
+    const row = votes[id] || { likes: 0, dislikes: 0 };
+    return `<button type="button" class="vote-btn" data-id="${id}" data-vote="like">👍 ${row.likes}</button><button type="button" class="vote-btn" data-id="${id}" data-vote="dislike">👎 ${row.dislikes}</button>`;
   }
-
+  function imageHtml(item) {
+    const path = (item && (item.imagePath || (item.file && item.file.path))) || "";
+    if (!path) return "";
+    return `<img class="shot" src="${String(path).replace(/\\/g, "/").replace(/^\/+/, "")}" alt="">`;
+  }
   function cardHtml(c) {
     const dueText = c.left < 0 ? "Closed" : (c.left === 0 ? "Closes today" : c.left + " days left");
     return `<article class="card">
-      <div class="top">
-        <div>
-          <div class="org">${c.opp.type} · ${c.opp.organizer}</div>
-          <h2>${c.opp.title}</h2>
-          <div class="org">${c.opp.prize} · ${c.opp.location}</div>
-        </div>
-        <div class="match">${c.pct}% MATCH</div>
-      </div>
+      <div class="top"><div><div class="org">${c.opp.type} · ${c.opp.organizer}</div><h2>${c.opp.title}</h2><div class="org">${c.opp.prize} · ${c.opp.location}</div></div><div class="match">${c.pct}% MATCH</div></div>
       ${imageHtml(c.opp)}
       <p class="desc">${c.opp.description || ""}</p>
       <div class="why">Why you're seeing this: ${c.why.join(" · ") || "Open to your campus"}</div>
-      <div class="actions">
-        <span class="due">⏰ ${dueText}</span>
-        <a href="${c.opp.registrationLink}" target="_blank" rel="noopener">Register</a>
-        ${pinButton(c.opp.id)}
-      </div>
+      <div class="actions"><span class="due">⏰ ${dueText}</span><a href="${c.opp.registrationLink}" target="_blank" rel="noopener">Register</a>${pinButton(c.opp.id)}${voteButtons(c.opp.id)}</div>
     </article>`;
   }
-
   function pinHtml(c) {
     const dueText = c.left < 0 ? "Closed" : (c.left === 0 ? "Closes today" : c.left + " days left");
-    return `<article class="card pin" data-id="${c.opp.id}">
-      <h2>${c.opp.title}</h2>
-      <div class="full">
-        <div class="org">${c.opp.type} · ${c.opp.organizer} · ${c.opp.location}</div>
-        <div class="match">${c.pct}% MATCH</div>
-        <p class="desc">${c.opp.description || ""}</p>
-        ${imageHtml(c.opp)}
-        <div class="why">Why you're seeing this: ${c.why.join(" · ") || "Open to your campus"}</div>
-        <div class="actions">
-          <span class="due">⏰ ${dueText}</span>
-          <a href="${c.opp.registrationLink}" target="_blank" rel="noopener">Register</a>
-          ${pinButton(c.opp.id)}
-        </div>
-      </div>
-    </article>`;
+    return `<article class="card pin" data-id="${c.opp.id}"><h2>${c.opp.title}</h2><div class="full">
+      <div class="org">${c.opp.type} · ${c.opp.organizer} · ${c.opp.location}</div><div class="match">${c.pct}% MATCH</div>
+      <p class="desc">${c.opp.description || ""}</p>${imageHtml(c.opp)}
+      <div class="why">Why you're seeing this: ${c.why.join(" · ") || "Open to your campus"}</div>
+      <div class="actions"><span class="due">⏰ ${dueText}</span><a href="${c.opp.registrationLink}" target="_blank" rel="noopener">Register</a>${pinButton(c.opp.id)}${voteButtons(c.opp.id)}</div>
+    </div></article>`;
   }
-
+  function titleCard(c) {
+    const dueText = c.left < 0 ? "Closed" : (c.left === 0 ? "Closes today" : c.left + " days left");
+    return `<article class="card pin" data-id="${c.opp.id}"><h2>${c.opp.title}</h2><div class="full">
+      <div class="org">${c.opp.type || ""} · ${dueText}</div><p class="desc">${c.opp.description || ""}</p>${imageHtml(c.opp)}
+      <div class="actions"><span class="due">⏰ ${dueText}</span><a href="${c.opp.registrationLink || "#"}" target="_blank" rel="noopener">Register</a>${voteButtons(c.opp.id)}</div>
+    </div></article>`;
+  }
+  function bindVotes(root) {
+    root.querySelectorAll(".vote-btn").forEach(btn => btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (!user.rollNo) { alert("Log in first"); return; }
+      fetch("getlikedislike.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: btn.dataset.id, vote: btn.dataset.vote }) })
+        .then(r => r.json())
+        .then(data => {
+          if (!data.ok) { alert(data.error || "Could not save vote"); return; }
+          votes = data.votes || {};
+          renderDue(); renderPinned(); renderList();
+        });
+    }));
+  }
+  function renderDue() {
+    const wrap = document.getElementById("due-wrap");
+    const soon = allCards.filter(c => c.left >= 0 && c.left <= 14);
+    if (!soon.length) { wrap.style.display = "none"; return; }
+    wrap.style.display = "";
+    const box = document.getElementById("due-list");
+    box.innerHTML = soon.map(titleCard).join("");
+    box.querySelectorAll(".pin").forEach(el => el.addEventListener("click", (e) => {
+      if (e.target.closest("a") || e.target.closest(".vote-btn")) return;
+      el.classList.toggle("open");
+    }));
+    bindVotes(box);
+  }
   function renderPinned() {
     const wrap = document.getElementById("pinned-wrap");
     const pinned = pinnedIds.map(id => allCards.find(c => c.opp.id === id)).filter(Boolean);
@@ -227,43 +235,54 @@
     wrap.style.display = "";
     const box = document.getElementById("pinned");
     box.innerHTML = pinned.map(pinHtml).join("");
-    box.querySelectorAll(".pin").forEach(el => {
-      el.addEventListener("click", (e) => {
-        if (e.target.closest("a") || e.target.closest(".pin-btn")) return;
-        el.classList.toggle("open");
-      });
-    });
+    box.querySelectorAll(".pin").forEach(el => el.addEventListener("click", (e) => {
+      if (e.target.closest("a") || e.target.closest(".pin-btn") || e.target.closest(".vote-btn")) return;
+      el.classList.toggle("open");
+    }));
     box.querySelectorAll(".pin-btn").forEach(btn => btn.addEventListener("click", () => togglePin(btn.dataset.id)));
+    bindVotes(box);
   }
-
   function renderList() {
-    const shown = activeType ? allCards.filter(c => c.opp.type === activeType) : allCards;
+    const repeats = repeatIds.map(id => allCards.find(c => String(c.opp.id) === String(id))).filter(Boolean);
+    const rest = activeType ? allCards.filter(c => c.opp.type === activeType) : allCards;
+    const shown = repeats.concat(rest.filter(c => !repeatIds.includes(String(c.opp.id))));
     document.getElementById("filter-bar").classList.toggle("show", Boolean(activeType));
     document.getElementById("filter-label").textContent = activeType ? activeType + " only" : "";
     document.querySelectorAll(".blip").forEach(el => el.classList.toggle("active", el.dataset.type === activeType));
     const list = document.getElementById("list");
     list.innerHTML = shown.map(cardHtml).join("") || "<p>No opportunities in this type.</p>";
     list.querySelectorAll(".pin-btn").forEach(btn => btn.addEventListener("click", () => togglePin(btn.dataset.id)));
+    bindVotes(list);
+    if (!("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.querySelector(".pin-btn") && entry.target.querySelector(".pin-btn").dataset.id;
+        if (!id) return;
+        if (!watch[id]) watch[id] = { start: 0, sent: false };
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          if (!watch[id].start) watch[id].start = Date.now();
+        } else if (watch[id].start) {
+          const seconds = Math.round((Date.now() - watch[id].start) / 1000);
+          watch[id].start = 0;
+          if (user.rollNo && seconds >= 60 && !watch[id].sent) {
+            watch[id].sent = true;
+            fetch("repeat.php", { method: "POST", body: new URLSearchParams({ action: "record", rollNo: user.rollNo, id: id, seconds: String(seconds) }) });
+          }
+        }
+      });
+    }, { threshold: 0.6 });
+    list.querySelectorAll(".card").forEach(card => observer.observe(card));
   }
-
   function togglePin(id) {
     if (!user.rollNo) { alert("Log in first"); return; }
-    const body = new URLSearchParams({
-      rollNo: user.rollNo,
-      id: id,
-      action: isPinned(id) ? "unpin" : "pin"
-    });
-    fetch("pin.php", { method: "POST", body })
+    fetch("pin.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: id, action: isPinned(id) ? "unpin" : "pin" }) })
       .then(r => r.json())
       .then(data => {
         if (!data.ok) { alert(data.error || "Could not update pin"); return; }
         pinnedIds = data.ids || [];
-        renderPinned();
-        renderList();
-      })
-      .catch(() => alert("Could not reach pin.php"));
+        renderPinned(); renderList();
+      });
   }
-
   function drawRadar(cards) {
     const radar = document.getElementById("radar");
     TYPES.forEach(type => {
@@ -277,65 +296,34 @@
       el.style.left = "calc(50% + " + Math.cos(rad) * radius + "px)";
       el.style.top = "calc(50% + " + Math.sin(rad) * radius + "px)";
       el.innerHTML = '<span class="dot" style="background:' + type.color + '"></span>' + type.name + "<em>" + pct + "% match</em>";
-      el.addEventListener("click", () => {
-        activeType = activeType === type.name ? "" : type.name;
-        renderList();
-      });
+      el.addEventListener("click", () => { activeType = activeType === type.name ? "" : type.name; renderList(); });
       radar.appendChild(el);
     });
   }
+  document.getElementById("clear-filter").addEventListener("click", () => { activeType = ""; renderList(); });
 
-  document.getElementById("clear-filter").addEventListener("click", () => {
-    activeType = "";
-    renderList();
-  });
-
-  fetch("get_data.php")
-    .then(r => r.json())
-    .then(data => {
-      if (!data.ok) throw new Error(data.error || "failed");
-      allCards = (data.opportunities || []).map(opp => ({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) }));
-      (data.posts || []).forEach(post => {
-        const opp = {
-          id: String(post.id),
-          title: post.title,
-          organizer: "Campus post",
-          type: "Workshop",
-          deadlineToRegister: post.deadline,
-          eventDates: post.deadline,
-          location: post.branch || "Campus",
-          prize: post.year || "",
-          registrationLink: "#",
-          description: post.body || "",
-          branch: [post.branch || "Any"],
-          year: [post.year || ""],
-          skills: post.skills || [],
-          interests: [],
-          file: post.file || null
-        };
-        allCards.push({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) });
-      });
-      allCards.sort((a, b) => b.pct - a.pct || a.left - b.left);
-      drawRadar(allCards);
-      const hot = allCards.filter(c => c.pct >= 70).length;
-      const due = allCards.filter(c => c.left >= 0 && c.left <= 7).length;
-      document.getElementById("p-match").textContent = "🎯 " + allCards.length + " Matches";
-      document.getElementById("p-hot").textContent = "🔥 " + hot + " Hot";
-      document.getElementById("p-due").textContent = "⏰ " + due + " Deadlines";
-      renderList();
-      if (!user.rollNo) { renderPinned(); return; }
-      fetch("users/" + user.rollNo + ".json")
-        .then(r => r.json())
-        .then(profile => {
-          pinnedIds = (profile.user && profile.user.pinned && profile.user.pinned.ids) || [];
-          renderPinned();
-          renderList();
-        })
-        .catch(() => renderPinned());
-    })
-    .catch(() => {
-      document.getElementById("list").innerHTML = "<p>Could not load get_data.php. Run a PHP server in this folder.</p>";
+  fetch("get_data.php").then(r => r.json()).then(data => {
+    if (!data.ok) throw new Error(data.error || "failed");
+    allCards = (data.opportunities || []).map(opp => ({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) }));
+    (data.posts || []).forEach(post => {
+      const opp = { id: String(post.id), title: post.title, organizer: "Campus post", type: "Workshop", deadlineToRegister: post.deadline, location: post.branch || "Campus", prize: post.year || "", registrationLink: "#", description: post.body || "", branch: [post.branch || "Any"], year: [post.year || ""], skills: post.skills || [], interests: [], file: post.file || null, imagePath: post.imagePath || "" };
+      allCards.push({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) });
     });
+    allCards.sort((a, b) => b.pct - a.pct || a.left - b.left);
+    drawRadar(allCards);
+    document.getElementById("p-match").textContent = "🎯 " + allCards.length + " Matches";
+    document.getElementById("p-hot").textContent = "🔥 " + allCards.filter(c => c.pct >= 70).length + " Hot";
+    document.getElementById("p-due").textContent = "⏰ " + allCards.filter(c => c.left >= 0 && c.left <= 7).length + " Deadlines";
+    renderDue(); renderList();
+    fetch("getlikedislike.php").then(r => r.json()).then(info => { votes = info.votes || {}; renderDue(); renderPinned(); renderList(); }).catch(() => {});
+    if (user.rollNo) {
+      fetch("repeat.php?action=due&rollNo=" + encodeURIComponent(user.rollNo)).then(r => r.json()).then(info => { repeatIds = (info.due || []).map(String); renderList(); }).catch(() => {});
+      fetch("users/" + user.rollNo + ".json").then(r => r.json()).then(profile => {
+        pinnedIds = (profile.user && profile.user.pinned && profile.user.pinned.ids) || [];
+        renderPinned(); renderList();
+      }).catch(() => renderPinned());
+    }
+  }).catch(() => { document.getElementById("list").innerHTML = "<p>Could not load get_data.php. Run a PHP server in this folder.</p>"; });
 </script>
 </body>
 </html>
