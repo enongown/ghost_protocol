@@ -47,22 +47,18 @@
   </form>
 <script>
   const msg = document.getElementById("msg");
-
   document.getElementById("form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const rollNo = document.getElementById("roll").value.trim();
     const password = document.getElementById("password").value;
     msg.textContent = "";
-
     const body = new URLSearchParams({ rollNo, password });
-    const res = await fetch("auth.php", { method: "POST", body });
+    const res = await fetch("/api/auth.php", { method: "POST", body });
     const data = await res.json();
-
     if (!data.ok) {
       msg.textContent = data.error || "Login failed";
       return;
     }
-
     const user = data.user;
     const q = new URLSearchParams({
       rollNo: user.rollNo,
@@ -76,7 +72,6 @@
     });
     window.location.href = "feed.html?" + q.toString();
   });
-
   document.getElementById("signup").addEventListener("click", () => {
     window.location.href = "signup.html";
   });
