@@ -206,7 +206,7 @@
     root.querySelectorAll(".vote-btn").forEach(btn => btn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (!user.rollNo) { alert("Log in first"); return; }
-      fetch("getlikedislike.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: btn.dataset.id, vote: btn.dataset.vote }) })
+      fetch("/api/getlikedislike.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: btn.dataset.id, vote: btn.dataset.vote }) })
         .then(r => r.json())
         .then(data => {
           if (!data.ok) { alert(data.error || "Could not save vote"); return; }
@@ -266,7 +266,7 @@
           watch[id].start = 0;
           if (user.rollNo && seconds >= 60 && !watch[id].sent) {
             watch[id].sent = true;
-            fetch("repeat.php", { method: "POST", body: new URLSearchParams({ action: "record", rollNo: user.rollNo, id: id, seconds: String(seconds) }) });
+            fetch("/api/repeat.php", { method: "POST", body: new URLSearchParams({ action: "record", rollNo: user.rollNo, id: id, seconds: String(seconds) }) });
           }
         }
       });
@@ -275,7 +275,7 @@
   }
   function togglePin(id) {
     if (!user.rollNo) { alert("Log in first"); return; }
-    fetch("pin.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: id, action: isPinned(id) ? "unpin" : "pin" }) })
+    fetch("/api/pin.php", { method: "POST", body: new URLSearchParams({ rollNo: user.rollNo, id: id, action: isPinned(id) ? "unpin" : "pin" }) })
       .then(r => r.json())
       .then(data => {
         if (!data.ok) { alert(data.error || "Could not update pin"); return; }
@@ -302,7 +302,7 @@
   }
   document.getElementById("clear-filter").addEventListener("click", () => { activeType = ""; renderList(); });
 
-  fetch("get_data.php").then(r => r.json()).then(data => {
+  fetch("/api/get_data.php").then(r => r.json()).then(data => {
     if (!data.ok) throw new Error(data.error || "failed");
     allCards = (data.opportunities || []).map(opp => ({ opp, ...score(opp), left: daysLeft(opp.deadlineToRegister) }));
     (data.posts || []).forEach(post => {
@@ -315,9 +315,9 @@
     document.getElementById("p-hot").textContent = "🔥 " + allCards.filter(c => c.pct >= 70).length + " Hot";
     document.getElementById("p-due").textContent = "⏰ " + allCards.filter(c => c.left >= 0 && c.left <= 7).length + " Deadlines";
     renderDue(); renderList();
-    fetch("getlikedislike.php").then(r => r.json()).then(info => { votes = info.votes || {}; renderDue(); renderPinned(); renderList(); }).catch(() => {});
+    fetch("/api/getlikedislike.php").then(r => r.json()).then(info => { votes = info.votes || {}; renderDue(); renderPinned(); renderList(); }).catch(() => {});
     if (user.rollNo) {
-      fetch("repeat.php?action=due&rollNo=" + encodeURIComponent(user.rollNo)).then(r => r.json()).then(info => { repeatIds = (info.due || []).map(String); renderList(); }).catch(() => {});
+      fetch("/api/repeat.php?action=due&rollNo=" + encodeURIComponent(user.rollNo)).then(r => r.json()).then(info => { repeatIds = (info.due || []).map(String); renderList(); }).catch(() => {});
       fetch("users/" + user.rollNo + ".json").then(r => r.json()).then(profile => {
         pinnedIds = (profile.user && profile.user.pinned && profile.user.pinned.ids) || [];
         renderPinned(); renderList();
