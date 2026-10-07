@@ -256,7 +256,7 @@ async function api(action, data = {}, file) {
   for (const k in data) fd.append(k, data[k]);
   if (file) fd.append("file", file);
   let r, j;
-  try { r = await fetch("api.php", { method: "POST", body: fd }); j = await r.json(); }
+  try { r = await fetch("/api/api.php", { method: "POST", body: fd }); j = await r.json(); }
   catch (e) { throw new Error("Cannot reach api.php. Open this page through a PHP server."); }
   if (!r.ok) throw new Error(j.error || "Request failed");
   return j;
@@ -264,7 +264,7 @@ async function api(action, data = {}, file) {
 
 async function refresh() {
   try {
-    const r = await fetch("api.php?action=list"); db = await r.json();
+    const r = await fetch("/api/api.php?action=list"); db = await r.json();
     db.applications = [];
     if ($("adminKey").value) {
       try { db.applications = (await api("admin_list", { key: $("adminKey").value })).applications || []; } catch (e) {}
