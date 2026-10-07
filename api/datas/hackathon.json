@@ -1,0 +1,1082 @@
+{
+    "opportunities": [
+        {
+            "id": "hack-001",
+            "title": "Microsoft AI Hackathon",
+            "organizer": "Microsoft",
+            "type": "Hackathon",
+            "matchHint": 96,
+            "deadlineToRegister": "2026-10-06",
+            "eventDates": "2026-10-17 to 2026-10-19",
+            "location": "Hyderabad \/ Online",
+            "prize": "₹1,50,000 prize pool",
+            "registrationLink": "https:\/\/careers.microsoft.com\/hackathon\/ai-2026\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS",
+                "ECE"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "Machine Learning",
+                "PyTorch",
+                "APIs"
+            ],
+            "interests": [
+                "AI\/ML",
+                "Hackathons",
+                "Product building"
+            ],
+            "eligibility": "Teams of 2–4 full-time undergraduates in CSE, IT, AI & DS, or ECE. At least one member must have shipped an ML project. Registration closes 6 Oct 2026.",
+            "description": "A 48-hour build sprint where teams ship an AI feature on a real product brief. Mentors from Microsoft review demos, and the top teams split the prize pool."
+        },
+        {
+            "id": "hack-002",
+            "title": "Build-for-Bharat Hackathon",
+            "organizer": "Campus Clubs Collective",
+            "type": "Hackathon",
+            "matchHint": 91,
+            "deadlineToRegister": "2026-10-09",
+            "eventDates": "2026-10-24 to 2026-10-25",
+            "location": "On campus",
+            "prize": "₹1,00,000 prize pool",
+            "registrationLink": "https:\/\/campusclubs.edu\/build-for-bharat\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "Mechanical",
+                "Design"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Web",
+                "Python",
+                "Figma",
+                "Public speaking"
+            ],
+            "interests": [
+                "Hackathons",
+                "Social impact",
+                "Startups"
+            ],
+            "eligibility": "Teams of 2–4 currently enrolled students. At least one member must be from a tech branch. Register by 9 Oct 2026.",
+            "description": "Campus teams build a working prototype for a public problem in India. Judging looks at usefulness, not just the slide deck."
+        },
+        {
+            "id": "hack-003",
+            "title": "AI Research Hackathon",
+            "organizer": "IIT Lab Collaboration",
+            "type": "Hackathon",
+            "matchHint": 93,
+            "deadlineToRegister": "2026-10-04",
+            "eventDates": "2026-10-11 to 2026-10-12",
+            "location": "Remote",
+            "prize": "₹75,000 + lab mentorship",
+            "registrationLink": "https:\/\/iitlab.edu\/ai-research-hackathon\/register",
+            "branch": [
+                "CSE",
+                "AI & DS",
+                "Mathematics"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "NLP",
+                "Research writing",
+                "Statistics"
+            ],
+            "interests": [
+                "Research",
+                "NLP",
+                "Hackathons"
+            ],
+            "eligibility": "3rd or 4th year students with CGPA 8.0 or above. Teams of 2–3. Registration closes 4 Oct 2026.",
+            "description": "A short research hack where pairs test an NLP idea, write a one-page finding, and present it to lab mentors."
+        },
+        {
+            "id": "hack-004",
+            "title": "Google Solution Hackathon",
+            "organizer": "Google Developer Groups",
+            "type": "Hackathon",
+            "matchHint": 88,
+            "deadlineToRegister": "2026-10-16",
+            "eventDates": "2026-11-01 to 2026-11-02",
+            "location": "Global \/ Remote",
+            "prize": "Mentorship + global prizes",
+            "registrationLink": "https:\/\/developers.google.com\/solution-challenge\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Android",
+                "Web",
+                "Firebase",
+                "UX"
+            ],
+            "interests": [
+                "Social impact",
+                "Mobile",
+                "Hackathons"
+            ],
+            "eligibility": "University teams of 1–4. Solution must address a UN Sustainable Development Goal. Register by 16 Oct 2026.",
+            "description": "Teams design a product that maps to a UN Sustainable Development Goal, then demo it to GDG reviewers."
+        },
+        {
+            "id": "hack-005",
+            "title": "Women in Tech Hackathon",
+            "organizer": "AnitaB.org Campus Chapter",
+            "type": "Hackathon",
+            "matchHint": 74,
+            "deadlineToRegister": "2026-10-20",
+            "eventDates": "2026-11-07 to 2026-11-08",
+            "location": "India \/ Online",
+            "prize": "₹50,000 + internship interviews",
+            "registrationLink": "https:\/\/anitab.org\/campus\/women-in-tech-hackathon\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "EEE",
+                "AI & DS"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Any programming language",
+                "Leadership",
+                "Pitching"
+            ],
+            "interests": [
+                "Hackathons",
+                "Community",
+                "Women in tech"
+            ],
+            "eligibility": "Teams of 2–4 with at least 50% women members, 2nd or 3rd year engineering. CGPA 7.5+. Register by 20 Oct 2026.",
+            "description": "A women-led build weekend with pitch coaching and internship interviews for the top teams."
+        },
+        {
+            "id": "hack-006",
+            "title": "Smart India Hardware Hackathon",
+            "organizer": "Ministry of Education",
+            "type": "Hackathon",
+            "matchHint": 81,
+            "deadlineToRegister": "2026-10-18",
+            "eventDates": "2026-11-14 to 2026-11-16",
+            "location": "National",
+            "prize": "₹75,000 prototype grant",
+            "registrationLink": "https:\/\/sih.gov.in\/hardware-hackathon\/register",
+            "branch": [
+                "ECE",
+                "EEE",
+                "Mechanical",
+                "CSE"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Embedded systems",
+                "Arduino",
+                "CAD",
+                "Python"
+            ],
+            "interests": [
+                "Hardware",
+                "IoT",
+                "Hackathons"
+            ],
+            "eligibility": "Teams of up to 6 from the same institute with one faculty mentor. Register by 18 Oct 2026. Working prototype expected at the zonal round.",
+            "description": "Hardware-focused national round. Teams bring a working prototype and a faculty mentor to the zonal demo."
+        },
+        {
+            "id": "hack-007",
+            "title": "Razorpay Fintech Hackathon",
+            "organizer": "Razorpay",
+            "type": "Hackathon",
+            "matchHint": 89,
+            "deadlineToRegister": "2026-10-12",
+            "eventDates": "2026-10-31 to 2026-11-01",
+            "location": "Bengaluru \/ Hybrid",
+            "prize": "₹1,20,000 + internship offers",
+            "registrationLink": "https:\/\/razorpay.com\/hackathon\/fintech-2026\/register",
+            "branch": [
+                "CSE",
+                "IT"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Java",
+                "Go",
+                "SQL",
+                "System design"
+            ],
+            "interests": [
+                "Fintech",
+                "Backend",
+                "Hackathons"
+            ],
+            "eligibility": "Pre-final or final year CSE\/IT teams of 2–4. Prior project or GitHub work required. Registration closes 12 Oct 2026.",
+            "description": "Fintech teams design a payments or risk feature and pitch it to Razorpay engineers. Strong teams get internship interviews."
+        },
+        {
+            "id": "hack-008",
+            "title": "Open Source Hackathon",
+            "organizer": "Campus OSS Club",
+            "type": "Hackathon",
+            "matchHint": 86,
+            "deadlineToRegister": "2026-10-25",
+            "eventDates": "2026-11-08 to 2026-11-09",
+            "location": "Remote",
+            "prize": "₹40,000 + swag",
+            "registrationLink": "https:\/\/campusoss.edu\/hackathon\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Git",
+                "JavaScript",
+                "Python",
+                "Documentation"
+            ],
+            "interests": [
+                "Open source",
+                "Community",
+                "Web"
+            ],
+            "eligibility": "Any enrolled student, solo or teams of up to 3. One merged pull request, or the club starter issue, required before the event. Register by 25 Oct 2026.",
+            "description": "A remote weekend to land a real open-source pull request, with mentors reviewing issues before the demo."
+        },
+        {
+            "id": "hack-009",
+            "title": "Design for Impact Hackathon",
+            "organizer": "NID x Campus Design Cell",
+            "type": "Hackathon",
+            "matchHint": 70,
+            "deadlineToRegister": "2026-10-22",
+            "eventDates": "2026-11-05 to 2026-11-06",
+            "location": "On campus",
+            "prize": "Internship interviews for top 3",
+            "registrationLink": "https:\/\/designcell.edu\/design-for-impact\/register",
+            "branch": [
+                "Design",
+                "CSE",
+                "Architecture",
+                "Any"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Figma",
+                "User research",
+                "Prototyping"
+            ],
+            "interests": [
+                "Design",
+                "UX",
+                "Hackathons"
+            ],
+            "eligibility": "Individuals or pairs. A short portfolio or case-study PDF required at registration. Register by 22 Oct 2026.",
+            "description": "A design-and-build sprint. Pairs submit a case study and a clickable prototype, not just screenshots."
+        },
+        {
+            "id": "hack-010",
+            "title": "ISRO Space Systems Hackathon",
+            "organizer": "ISRO Outreach",
+            "type": "Hackathon",
+            "matchHint": 78,
+            "deadlineToRegister": "2026-11-02",
+            "eventDates": "2026-11-21 to 2026-11-23",
+            "location": "Hybrid",
+            "prize": "Certificate + lab access",
+            "registrationLink": "https:\/\/www.isro.gov.in\/outreach\/space-systems-hackathon\/register",
+            "branch": [
+                "ECE",
+                "EEE",
+                "Aerospace",
+                "CSE",
+                "Physics"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Signal processing",
+                "Python",
+                "MATLAB",
+                "Technical writing"
+            ],
+            "interests": [
+                "Space",
+                "Research",
+                "Hackathons"
+            ],
+            "eligibility": "3rd or 4th year teams of 3–5 with CGPA 8.5+ and a faculty endorsement. Register by 2 Nov 2026. 3-page subsystem proposal due with the form.",
+            "description": "Student teams propose a small-satellite subsystem and defend a 3-page note in front of outreach reviewers."
+        },
+        {
+            "id": "int-001",
+            "title": "Microsoft AI Internship",
+            "organizer": "Microsoft",
+            "type": "Internship",
+            "matchHint": 94,
+            "deadlineToRegister": "2026-10-14",
+            "eventDates": "10 weeks, summer 2026",
+            "location": "Hyderabad \/ Remote",
+            "prize": "₹80,000 \/ month",
+            "registrationLink": "https:\/\/careers.microsoft.com\/internships\/ai\/apply",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Python",
+                "Machine Learning",
+                "SQL"
+            ],
+            "interests": [
+                "AI\/ML",
+                "Product building"
+            ],
+            "eligibility": "CSE, IT, or AI & DS students with one ML project. Register by 14 Oct 2026.",
+            "description": "A 10-week AI internship. You ship a model-backed feature with a mentor and a weekly demo."
+        },
+        {
+            "id": "int-002",
+            "title": "Razorpay Backend Internship",
+            "organizer": "Razorpay",
+            "type": "Internship",
+            "matchHint": 88,
+            "deadlineToRegister": "2026-10-18",
+            "eventDates": "8 weeks",
+            "location": "Bengaluru",
+            "prize": "₹60,000 \/ month",
+            "registrationLink": "https:\/\/razorpay.com\/careers\/intern",
+            "branch": [
+                "CSE",
+                "IT"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Java",
+                "SQL",
+                "System design"
+            ],
+            "interests": [
+                "Fintech",
+                "Backend"
+            ],
+            "eligibility": "Pre-final or final year CSE\/IT. On-site for 8 weeks.",
+            "description": "An on-site backend internship working on payments services, SQL, and code review."
+        },
+        {
+            "id": "int-003",
+            "title": "Adobe Design Engineering Internship",
+            "organizer": "Adobe",
+            "type": "Internship",
+            "matchHint": 76,
+            "deadlineToRegister": "2026-10-21",
+            "eventDates": "12 weeks",
+            "location": "Noida \/ Hybrid",
+            "prize": "₹70,000 \/ month",
+            "registrationLink": "https:\/\/careers.adobe.com\/internships\/design-eng",
+            "branch": [
+                "CSE",
+                "IT",
+                "Design"
+            ],
+            "year": [
+                "3rd Year"
+            ],
+            "skills": [
+                "JavaScript",
+                "Figma",
+                "Web"
+            ],
+            "interests": [
+                "Design",
+                "Product building"
+            ],
+            "eligibility": "3rd year students who can show a portfolio or a shipped web project.",
+            "description": "Build a small Creative Cloud prototype with a designer and an engineer as paired mentors."
+        },
+        {
+            "id": "int-004",
+            "title": "Zoho Full-Stack Internship",
+            "organizer": "Zoho",
+            "type": "Internship",
+            "matchHint": 84,
+            "deadlineToRegister": "2026-10-28",
+            "eventDates": "6 months",
+            "location": "Chennai",
+            "prize": "₹40,000 \/ month",
+            "registrationLink": "https:\/\/careers.zoho.com\/intern",
+            "branch": [
+                "CSE",
+                "IT"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Java",
+                "Web",
+                "SQL"
+            ],
+            "interests": [
+                "Product building",
+                "Backend"
+            ],
+            "eligibility": "Pre-final or final year. Written test plus a small project round.",
+            "description": "A longer product internship. You own a feature from spec to release on a Zoho app."
+        },
+        {
+            "id": "int-005",
+            "title": "Swiggy Data Internship",
+            "organizer": "Swiggy",
+            "type": "Internship",
+            "matchHint": 82,
+            "deadlineToRegister": "2026-11-01",
+            "eventDates": "8 weeks",
+            "location": "Bengaluru \/ Hybrid",
+            "prize": "₹55,000 \/ month",
+            "registrationLink": "https:\/\/careers.swiggy.com\/data-intern",
+            "branch": [
+                "CSE",
+                "AI & DS",
+                "Mathematics"
+            ],
+            "year": [
+                "3rd Year"
+            ],
+            "skills": [
+                "Python",
+                "SQL",
+                "Statistics"
+            ],
+            "interests": [
+                "AI\/ML",
+                "Product building"
+            ],
+            "eligibility": "3rd year with a statistics or data project. Hybrid attendance required.",
+            "description": "Analyze delivery and demand data, then present one recommendation to the ops team."
+        },
+        {
+            "id": "res-001",
+            "title": "AI Research Fellowship Call",
+            "organizer": "IIT Lab Collaboration",
+            "type": "Research",
+            "matchHint": 90,
+            "deadlineToRegister": "2026-10-11",
+            "eventDates": "8 weeks",
+            "location": "Remote",
+            "prize": "₹25,000 \/ month",
+            "registrationLink": "https:\/\/iitlab.edu\/ai-research\/apply",
+            "branch": [
+                "CSE",
+                "AI & DS",
+                "Mathematics"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "NLP",
+                "Statistics"
+            ],
+            "interests": [
+                "Research",
+                "NLP",
+                "AI\/ML"
+            ],
+            "eligibility": "3rd or 4th year, CGPA 8.0+, one research or open-source contribution.",
+            "description": "An 8-week research seat on an NLP problem, with a stipend and a short write-up at the end."
+        },
+        {
+            "id": "res-002",
+            "title": "ISRO Space Systems Research Call",
+            "organizer": "ISRO Outreach",
+            "type": "Research",
+            "matchHint": 77,
+            "deadlineToRegister": "2026-11-02",
+            "eventDates": "Proposal round",
+            "location": "Hybrid",
+            "prize": "Certificate + lab access",
+            "registrationLink": "https:\/\/www.isro.gov.in\/outreach\/space-research\/apply",
+            "branch": [
+                "ECE",
+                "EEE",
+                "Aerospace",
+                "CSE"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "MATLAB",
+                "Technical writing"
+            ],
+            "interests": [
+                "Space",
+                "Research"
+            ],
+            "eligibility": "CGPA 8.5+ and a faculty endorsement. 3-page proposal required.",
+            "description": "A proposal call for a small space-systems idea, with lab access for selected teams."
+        },
+        {
+            "id": "res-003",
+            "title": "Climate Modelling Reading Group",
+            "organizer": "Campus Earth Lab",
+            "type": "Research",
+            "matchHint": 68,
+            "deadlineToRegister": "2026-10-19",
+            "eventDates": "6 weeks",
+            "location": "On campus",
+            "prize": "Co-authorship on a poster",
+            "registrationLink": "https:\/\/earthlab.edu\/climate-group\/join",
+            "branch": [
+                "CSE",
+                "Mathematics",
+                "ECE",
+                "Any"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "Statistics"
+            ],
+            "interests": [
+                "Research",
+                "Social impact"
+            ],
+            "eligibility": "Any branch with basic Python. Weekly paper discussion plus one plot.",
+            "description": "Read climate papers and reproduce one figure. Strong notes can go on the lab poster."
+        },
+        {
+            "id": "res-004",
+            "title": "Healthcare NLP Study Seat",
+            "organizer": "City Hospital Research Cell",
+            "type": "Research",
+            "matchHint": 85,
+            "deadlineToRegister": "2026-10-23",
+            "eventDates": "10 weeks",
+            "location": "Hybrid",
+            "prize": "₹15,000 stipend",
+            "registrationLink": "https:\/\/cityhospital.edu\/nlp-study\/apply",
+            "branch": [
+                "CSE",
+                "AI & DS"
+            ],
+            "year": [
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "NLP",
+                "Research writing"
+            ],
+            "interests": [
+                "Research",
+                "NLP",
+                "AI\/ML"
+            ],
+            "eligibility": "CSE or AI & DS, CGPA 8.0+. Ethics form signed with a faculty guide.",
+            "description": "Label and model a small clinical-note dataset. No patient data leaves the lab."
+        },
+        {
+            "id": "fell-001",
+            "title": "Open Source Summer Fellowship",
+            "organizer": "Campus OSS Club",
+            "type": "Fellowship",
+            "matchHint": 86,
+            "deadlineToRegister": "2026-10-25",
+            "eventDates": "6 weeks",
+            "location": "Remote",
+            "prize": "₹15,000 + swag",
+            "registrationLink": "https:\/\/campusoss.edu\/fellowship\/apply",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Git",
+                "JavaScript",
+                "Python"
+            ],
+            "interests": [
+                "Open source",
+                "Community",
+                "Web"
+            ],
+            "eligibility": "One merged pull request, or the starter issue, before selection.",
+            "description": "A 6-week open-source fellowship. You take issues, get reviews, and finish with a merged contribution."
+        },
+        {
+            "id": "fell-002",
+            "title": "MLH Fellowship Prep Track",
+            "organizer": "Major League Hacking",
+            "type": "Fellowship",
+            "matchHint": 83,
+            "deadlineToRegister": "2026-10-30",
+            "eventDates": "4 weeks",
+            "location": "Remote",
+            "prize": "Mentorship",
+            "registrationLink": "https:\/\/fellowship.mlh.io\/prep\/apply",
+            "branch": [
+                "CSE",
+                "IT",
+                "Any"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Git",
+                "Web",
+                "Python"
+            ],
+            "interests": [
+                "Open source",
+                "Product building"
+            ],
+            "eligibility": "Any enrolled student who can commit 10 hours a week.",
+            "description": "A prep fellowship that pairs you with a maintainer and a weekly code review."
+        },
+        {
+            "id": "fell-003",
+            "title": "Public Policy Tech Fellowship",
+            "organizer": "Civic Tech Cell",
+            "type": "Fellowship",
+            "matchHint": 72,
+            "deadlineToRegister": "2026-11-04",
+            "eventDates": "8 weeks",
+            "location": "Hybrid",
+            "prize": "₹20,000 stipend",
+            "registrationLink": "https:\/\/civictech.edu\/fellowship\/apply",
+            "branch": [
+                "CSE",
+                "IT",
+                "Design",
+                "Any"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Web",
+                "Figma",
+                "Public speaking"
+            ],
+            "interests": [
+                "Social impact",
+                "Startups"
+            ],
+            "eligibility": "Teams of 2. A one-page problem note is required with the form.",
+            "description": "Work with a city office on one public-service workflow and ship a small tool."
+        },
+        {
+            "id": "fell-004",
+            "title": "Women in Research Fellowship",
+            "organizer": "AnitaB.org Campus Chapter",
+            "type": "Fellowship",
+            "matchHint": 74,
+            "deadlineToRegister": "2026-10-27",
+            "eventDates": "12 weeks",
+            "location": "Remote",
+            "prize": "₹30,000 + mentor",
+            "registrationLink": "https:\/\/anitab.org\/campus\/research-fellowship",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "AI & DS"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Python",
+                "Research writing",
+                "Leadership"
+            ],
+            "interests": [
+                "Research",
+                "Community",
+                "Women in tech"
+            ],
+            "eligibility": "Women students in 2nd or 3rd year, CGPA 7.5+, one faculty reference.",
+            "description": "A guided first research project, with writing office hours and a final poster."
+        },
+        {
+            "id": "work-001",
+            "title": "ML Workshop Weekend",
+            "organizer": "Campus AI Club",
+            "type": "Workshop",
+            "matchHint": 80,
+            "deadlineToRegister": "2026-10-10",
+            "eventDates": "2026-10-18 to 2026-10-19",
+            "location": "On campus",
+            "prize": "Certificate",
+            "registrationLink": "https:\/\/campusai.edu\/ml-workshop\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS",
+                "ECE",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Python",
+                "Machine Learning"
+            ],
+            "interests": [
+                "AI\/ML",
+                "Workshops"
+            ],
+            "eligibility": "Open to all years. Bring a laptop.",
+            "description": "A weekend workshop that walks through a small machine-learning project from notebook to demo."
+        },
+        {
+            "id": "work-002",
+            "title": "Git and Open Source Workshop",
+            "organizer": "Campus OSS Club",
+            "type": "Workshop",
+            "matchHint": 79,
+            "deadlineToRegister": "2026-10-13",
+            "eventDates": "2026-10-17 · 4 hours",
+            "location": "On campus",
+            "prize": "Starter-issue credit",
+            "registrationLink": "https:\/\/campusoss.edu\/git-workshop",
+            "branch": [
+                "CSE",
+                "IT",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Git",
+                "Documentation"
+            ],
+            "interests": [
+                "Open source",
+                "Community"
+            ],
+            "eligibility": "No prior pull request needed. Seats limited to 40.",
+            "description": "Learn branching, a first pull request, and how to read an issue before you claim it."
+        },
+        {
+            "id": "work-003",
+            "title": "UI Prototyping Workshop",
+            "organizer": "Campus Design Cell",
+            "type": "Workshop",
+            "matchHint": 70,
+            "deadlineToRegister": "2026-10-22",
+            "eventDates": "2026-10-26 · 1 day",
+            "location": "On campus",
+            "prize": "Portfolio review",
+            "registrationLink": "https:\/\/designcell.edu\/prototyping-workshop",
+            "branch": [
+                "Design",
+                "CSE",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Figma",
+                "User research"
+            ],
+            "interests": [
+                "Design",
+                "UX"
+            ],
+            "eligibility": "Individuals. Figma account required. No design degree needed.",
+            "description": "Turn one user complaint into a clickable flow and get a 10-minute portfolio review."
+        },
+        {
+            "id": "work-004",
+            "title": "Embedded Systems Saturday",
+            "organizer": "Robotics Club",
+            "type": "Workshop",
+            "matchHint": 66,
+            "deadlineToRegister": "2026-10-17",
+            "eventDates": "2026-10-24 · 6 hours",
+            "location": "Electronics lab",
+            "prize": "Kit access",
+            "registrationLink": "https:\/\/robotics.edu\/embedded-saturday",
+            "branch": [
+                "ECE",
+                "EEE",
+                "CSE"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Arduino",
+                "Embedded systems",
+                "Python"
+            ],
+            "interests": [
+                "Hardware",
+                "IoT"
+            ],
+            "eligibility": "Lab induction form required. Teams of 2 share one kit.",
+            "description": "Wire a sensor, read it in Python, and leave with a logged dataset."
+        },
+        {
+            "id": "sch-001",
+            "title": "Merit Scholarship for Women in Tech",
+            "organizer": "AnitaB.org Campus Chapter",
+            "type": "Scholarship",
+            "matchHint": 73,
+            "deadlineToRegister": "2026-10-20",
+            "eventDates": "Awarded Nov 2026",
+            "location": "India",
+            "prize": "₹50,000 award",
+            "registrationLink": "https:\/\/anitab.org\/campus\/scholarship\/apply",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "AI & DS"
+            ],
+            "year": [
+                "2nd Year",
+                "3rd Year"
+            ],
+            "skills": [
+                "Python",
+                "Leadership"
+            ],
+            "interests": [
+                "Scholarships",
+                "Community"
+            ],
+            "eligibility": "Women students, 2nd or 3rd year, CGPA 7.5+, statement and reference.",
+            "description": "A one-time merit award judged on the statement, grades, and a faculty reference."
+        },
+        {
+            "id": "code-001",
+            "title": "CodeChef Campus Contest",
+            "organizer": "CodeChef",
+            "type": "Coding Contest",
+            "matchHint": 81,
+            "deadlineToRegister": "2026-10-15",
+            "eventDates": "2026-10-19 · 3 hours",
+            "location": "Online",
+            "prize": "₹40,000 prize pool",
+            "registrationLink": "https:\/\/www.codechef.com\/campus-contest\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "AI & DS",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Python",
+                "Algorithms",
+                "Data structures"
+            ],
+            "interests": [
+                "Coding contests",
+                "Competitive programming"
+            ],
+            "eligibility": "Any enrolled student. Solo. Register by 15 Oct 2026.",
+            "description": "A 3-hour solo contest. Problems are algorithmic and the board closes when the window ends."
+        },
+        {
+            "id": "comp-001",
+            "title": "Google Solution Challenge",
+            "organizer": "Google Developer Groups",
+            "type": "Competition",
+            "matchHint": 87,
+            "deadlineToRegister": "2026-10-16",
+            "eventDates": "2026-11-01 to 2026-11-02",
+            "location": "Global \/ Remote",
+            "prize": "Mentorship + global prizes",
+            "registrationLink": "https:\/\/developers.google.com\/solution-challenge\/register",
+            "branch": [
+                "CSE",
+                "IT",
+                "ECE",
+                "Any"
+            ],
+            "year": [
+                "1st Year",
+                "2nd Year",
+                "3rd Year",
+                "4th Year"
+            ],
+            "skills": [
+                "Web",
+                "Firebase",
+                "UX"
+            ],
+            "interests": [
+                "Social impact",
+                "Hackathons",
+                "Product building"
+            ],
+            "eligibility": "Teams of 1–4. Solution must address a UN Sustainable Development Goal.",
+            "description": "A global student competition to ship a product tied to a Sustainable Development Goal."
+        }
+    ],
+    "subs": [
+        {
+            "id": 1791394554567,
+            "branch": "CSE",
+            "year": "3",
+            "skills": [
+                "Python",
+                "C++"
+            ],
+            "interest": "AI Ml",
+            "elig": "",
+            "type": "Internship",
+            "link": "",
+            "status": "approved",
+            "file": null
+        },
+        {
+            "id": 1791130698428,
+            "branch": "EEE",
+            "year": "3",
+            "skills": [
+                "pythom",
+                "c++"
+            ],
+            "interest": "Ai",
+            "elig": "",
+            "type": "Hackathon",
+            "link": "",
+            "status": "approved",
+            "file": {
+                "name": "heaven-oxygen-smooth-cloudscape-transparent-backgrounds-special-effect-3d-rendering-file-png.png",
+                "path": "uploads\/c174ae0a1b584b4c.png"
+            }
+        },
+        {
+            "id": 1791107899165,
+            "branch": "CSE",
+            "year": "1",
+            "skills": [
+                "python"
+            ],
+            "interest": "ml",
+            "elig": "",
+            "type": "Hackathon",
+            "link": "",
+            "status": "approved",
+            "file": null
+        }
+    ],
+    "posts": [
+        {
+            "id": 1791394654102,
+            "title": "AI Ml inernshp at MIT",
+            "body": "This is one in a life opportunity",
+            "branch": "ECE",
+            "year": "2",
+            "skills": [
+                "python",
+                "Java"
+            ],
+            "deadline": "2027-04-21",
+            "file": null
+        }
+    ],
+    "mod": "nong",
+    "applications": []
+}
